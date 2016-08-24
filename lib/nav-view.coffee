@@ -138,7 +138,7 @@ class NavView extends ResizableWidthView
     gutter = $('.gutter-container', editorView.shadowRoot)
     # Setup sorter icon and title
     sorter = @mainView.find('.sorter')
-    if @state[file].sort
+    if !@state[file] || @state[file].sort
       sorter.addClass('icon-arrow-down')
       sorter.removeClass('icon-arrow-right')
       sorter.prop('title', 'Order: sorted')
