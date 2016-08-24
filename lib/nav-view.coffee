@@ -25,7 +25,7 @@ class NavView extends ResizableWidthView
     @viewContainer.addClass('zi-marker-panel')
     html = """
     <div class='zi-header'>
-      <div class='icon settings icon-gear'></div>
+      <!-- <div class='icon settings icon-gear'></div> -->
       <div class='icon sorter'></div>
     </div>
     <div class='zi-view'>
