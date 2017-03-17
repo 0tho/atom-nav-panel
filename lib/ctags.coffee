@@ -1,8 +1,8 @@
 # Created by ctags2coffee.coffee by processing .ctags
-langdef = 
+langdef =
   All: [
     {re: /#nav-mark:(.*)/i, id: '%1', kind: 'Markers'}
-    {re: /#todo:(.*)/i, id: '%1', kind: 'Todo'}
+    {re: /(#|\/\/)[ \t]*todo:(.*)/i, id: '%2', kind: 'Todo'}
   ]
   CoffeeScript: [
     {re: /^[ \t]*class[ \t]*([a-zA-Z$_\.0-9]+)(?:[ \t]|$)/, id: '%1', kind: 'Class'}
@@ -123,7 +123,7 @@ langdef =
     {re: /^[ \t]*(function|macro|abstract|type|typealias|immutable)[ \t]+([^ \t({[]+).*$/, id: '%2', kind: 'Function'}
     {re: /^[ \t]*(([^@#$ \t({[]+)|\(([^@#$ \t({[]+)\)|\((\$)\))[ \t]*(\{.*\})?[ \t]*\([^#]*\)[ \t]*=([^=].*$|$)/, id: '%2%3%4', kind: 'Function'}
   ]
-langmap = 
+langmap =
   '.coffee': langdef.CoffeeScript
   '.litcoffee': langdef.CoffeeScript
   '.rb': langdef.Ruby
