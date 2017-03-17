@@ -16,6 +16,9 @@ langdef =
     {re: /^[ \t]*describe (.*) do/, id: '%1', kind: 'Rspec describe'}
     {re: /^[ \t]*context ['"](.*)['"] do/, id: '%1', kind: 'Rspec context'}
   ]
+  Makefile: [
+    {re: /^([\w-_]+):/, id: '%1', kind: 'Target'}
+  ]
   php: [
     {re: /^[ \t]*const[ \t]*([a-zA-Z]+[^=]*=.*);/i, id: '%1', kind: 'Class'}
     {re: /^[ \t]*((var|protected|private|public|static).*);/i, id: '%1', kind: 'Properties'}
@@ -125,6 +128,7 @@ langmap =
   '.litcoffee': langdef.CoffeeScript
   '.rb': langdef.Ruby
   'Rakefile': langdef.Ruby
+  'Makefile': langdef.Makefile
   '.php': langdef.php
   '.css': langdef.Css
   '.less': langdef.Css
