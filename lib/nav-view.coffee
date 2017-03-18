@@ -1,5 +1,6 @@
 $ = require 'jquery'
 ResizableWidthView = require './resizable-width-view'
+{TextEditor} = require 'atom'
 
 icon_order_as_is = "icon-arrow-right"
 icon_order_alphabetical = "alphabetical-order"
@@ -14,6 +15,7 @@ class NavView extends ResizableWidthView
   parser: null  # parser supplied by client code
   state: {}
   view: null
+  miniEditor: null
 
   nextId: 1   # To mark the dom item
 
@@ -25,6 +27,8 @@ class NavView extends ResizableWidthView
     @changeSettings(settings)
     @parser = parser
 
+    @miniEditor = new TextEditor({mini: true, placeholderText: "Filter by name"})
+    @miniEditor.onDidChange => @filter()
     @viewContainer.addClass('zi-marker-panel')
     html = """
     <div class='zi-header'>
@@ -34,7 +38,11 @@ class NavView extends ResizableWidthView
     <div class='zi-view'>
     </div>
     """
+
     $(html).appendTo(@mainView)
+
+    header = @mainView.find('.zi-header')
+    header.append(@miniEditor.element)
 
     @view = @mainView.find('.zi-view')
     @view.on 'click', '.list-item', (event)=>
@@ -73,6 +81,16 @@ class NavView extends ResizableWidthView
     @view.children().each =>
       @destroyPanel($(this))
     @panel.destroy()
+
+  filter: ->
+    filterText = @miniEditor.getText()
+    lis = @view.find("li.list-item")
+    lis.show()
+    if filterText != ""
+      lis.each (index, element) =>
+        el = $(element)
+        if(el.text().toLowerCase().indexOf(filterText.toLowerCase()) < 0)
+          el.hide()
 
   movePanel: ->
     if @settings.leftPanel == 'left'
