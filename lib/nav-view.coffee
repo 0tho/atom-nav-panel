@@ -198,6 +198,7 @@ class NavView extends ResizableWidthView
       @destroyPanel(oldPanel)
     @populatePanel(editor)
     @setVisibility()
+    @filter()
 
 
   getPanelState: (panel)->
