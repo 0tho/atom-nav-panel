@@ -1,6 +1,9 @@
 $ = require 'jquery'
 ResizableWidthView = require './resizable-width-view'
 
+icon_order_as_is = "icon-arrow-right"
+icon_order_alphabetical = "alphabetical-order"
+
 module.exports =
 class NavView extends ResizableWidthView
   panel: null
@@ -55,12 +58,12 @@ class NavView extends ResizableWidthView
       # Setup sorter icon and title
       sorter = @mainView.find('.sorter')
       if @state[file].sort
-        sorter.addClass('icon-arrow-down')
-        sorter.removeClass('icon-arrow-right')
+        sorter.addClass(icon_order_alphabetical)
+        sorter.removeClass(icon_order_as_is)
         sorter.prop('title', 'Order: sorted')
       else
-        sorter.addClass('icon-arrow-right')
-        sorter.removeClass('icon-arrow-down')
+        sorter.addClass(icon_order_as_is)
+        sorter.removeClass(icon_order_alphabetical)
         sorter.prop('title', 'Order: as is in file')
       @updateFile(file)
 
@@ -135,16 +138,16 @@ class NavView extends ResizableWidthView
     #todo: If we have multiple panes this might give some odd results
     editor = @getFileEditor(file)
     editorView = atom.views.getView(editor)
-    gutter = $('.gutter-container', editorView.shadowRoot)
+    gutter = $('.gutter-container', editorView)
     # Setup sorter icon and title
     sorter = @mainView.find('.sorter')
     if !@state[file] || @state[file].sort
-      sorter.addClass('icon-arrow-down')
-      sorter.removeClass('icon-arrow-right')
+      sorter.addClass(icon_order_alphabetical)
+      sorter.removeClass(icon_order_as_is)
       sorter.prop('title', 'Order: sorted')
     else
-      sorter.addClass('icon-arrow-right')
-      sorter.removeClass('icon-arrow-down')
+      sorter.addClass(icon_order_as_is)
+      sorter.removeClass(icon_order_alphabetical)
       sorter.prop('title', 'Order: as is in file')
     if !gutter.data('zNavPanelMouse')
       gutter.data('zNavPanelMouse', 'done')
