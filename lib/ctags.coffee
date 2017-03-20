@@ -123,6 +123,11 @@ langdef =
     {re: /^[ \t]*(function|macro|abstract|type|typealias|immutable)[ \t]+([^ \t({[]+).*$/, id: '%2', kind: 'Function'}
     {re: /^[ \t]*(([^@#$ \t({[]+)|\(([^@#$ \t({[]+)\)|\((\$)\))[ \t]*(\{.*\})?[ \t]*\([^#]*\)[ \t]*=([^=].*$|$)/, id: '%2%3%4', kind: 'Function'}
   ]
+  taskpaper: [
+    {re: /(.*):$/, id: '%1', kind: 'Tasks'}
+    {re: /(.*)@important$/, id: '%1', kind: 'Important'}
+    {re: /(.*)@due\((.*)\)$/, id: '%1', kind: 'With due date'}
+  ]
 langmap =
   '.coffee': langdef.CoffeeScript
   '.litcoffee': langdef.CoffeeScript
@@ -155,4 +160,5 @@ langmap =
   '.fountain': langdef.Fountain
   '.ftn': langdef.Fountain
   '.jl': langdef.Julia
+  '.taskpaper': langdef.taskpaper  
 module.exports = {langdef: langdef, langmap: langmap}
