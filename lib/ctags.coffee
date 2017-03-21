@@ -42,7 +42,7 @@ langdef =
     {re: /^[ \t]*<([a-zA-Z]+)[ \t]*.*>/, id: '%1', kind: 'Function'}
   ]
   Markdown: [
-    {re: /^#+[ \t]*([^#]+)/, id: '%1', kind: 'Function'}
+    {re: /^#+[ \t]*([^#]+)/, id: '%1', kind: 'Header'}
     {re: /^- \[ \] (.*)/, id: '%1', kind: 'Open Tasks'}    
   ]
   Json: [
