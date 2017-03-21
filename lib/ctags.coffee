@@ -43,6 +43,7 @@ langdef =
   ]
   Markdown: [
     {re: /^#+[ \t]*([^#]+)/, id: '%1', kind: 'Function'}
+    {re: /^- \[ \] (.*)/, id: '%1', kind: 'Open Tasks'}    
   ]
   Json: [
     {re: /^[ \t]*"([^"]+)"[ \t]*\:/, id: '%1', kind: 'Field'}
