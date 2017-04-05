@@ -126,6 +126,9 @@ langdef =
     {re: /^[ \t]*(function|macro|abstract|type|typealias|immutable)[ \t]+([^ \t({[]+).*$/, id: '%2', kind: 'Function'}
     {re: /^[ \t]*(([^@#$ \t({[]+)|\(([^@#$ \t({[]+)\)|\((\$)\))[ \t]*(\{.*\})?[ \t]*\([^#]*\)[ \t]*=([^=].*$|$)/, id: '%2%3%4', kind: 'Function'}
   ]
+  reStructuredText: [
+    {re: /^(.*)\n([!-/:-@[-`{-~])\2+$/, multiline: true, id: '%2%2%2 %1', kind: 'Outlines'}
+  ]
 langmap =
   '.coffee': langdef.CoffeeScript
   '.litcoffee': langdef.CoffeeScript
@@ -158,4 +161,5 @@ langmap =
   '.fountain': langdef.Fountain
   '.ftn': langdef.Fountain
   '.jl': langdef.Julia
+  '.rst': langdef.reStructuredText
 module.exports = {langdef: langdef, langmap: langmap}

@@ -305,6 +305,8 @@ class NavView extends ResizableWidthView
       sort = @state[file].sort
     else
       sort = @settings.sort
+    if /\.(md|rst)$/.test(file)
+      sort = false
     if sort
       arrangedItems.sort (a,b)->
         key1 = (a.kind + '||' + a.label).toLowerCase()
