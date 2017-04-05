@@ -42,10 +42,14 @@ langdef =
     {re: /^[ \t]*<([a-zA-Z]+)[ \t]*.*>/, id: '%1', kind: 'Function'}
   ]
   Markdown: [
-    {re: /^####+[ \t]*([^#]+)/, id: '___# %1', kind: 'Contents'}
-    {re: /^###[ \t]*([^#]+)/, id: '__#%1', kind: 'Contents'}
-    {re: /^##[ \t]*([^#]+)/, id: '_# %1', kind: 'Contents'}
-    {re: /^#[ \t]*([^#]+)/, id: '# %1', kind: 'Contents'}
+    {re: /^#{1}[ \t]*([^#]+)([ \t]*#+)?\n$/, multiline: true, id: '# %1', kind: 'Outlines'}
+    {re: /^#{2}[ \t]*([^#]+)([ \t]*#+)?\n$/, multiline: true, id: '_# %1', kind: 'Outlines'}
+    {re: /^#{3}[ \t]*([^#]+)([ \t]*#+)?\n$/, multiline: true, id: '__# %1', kind: 'Outlines'}
+    {re: /^#{4}[ \t]*([^#]+)([ \t]*#+)?\n$/, multiline: true, id: '___# %1', kind: 'Outlines'}
+    {re: /^#{5}[ \t]*([^#]+)([ \t]*#+)?\n$/, multiline: true, id: '____# %1', kind: 'Outlines'}
+    {re: /^#{6}[ \t]*([^#]+)([ \t]*#+)?\n$/, multiline: true, id: '_____# %1', kind: 'Outlines'}
+    {re: /^(.*)\n=+(\n|$)/, multiline: true, id: '= %1', kind: 'Outlines'}
+    {re: /^(.*)\n-+(\n|$)/, multiline: true, id: '_- %1', kind: 'Outlines'}
   ]
   Json: [
     {re: /^[ \t]*"([^"]+)"[ \t]*\:/, id: '%1', kind: 'Field'}
