@@ -42,7 +42,10 @@ langdef =
     {re: /^[ \t]*<([a-zA-Z]+)[ \t]*.*>/, id: '%1', kind: 'Function'}
   ]
   Markdown: [
-    {re: /^#+[ \t]*([^#]+)/, id: '%1', kind: 'Function'}
+    {re: /^####+[ \t]*([^#]+)/, id: '___# %1', kind: 'Contents'}
+    {re: /^###[ \t]*([^#]+)/, id: '__#%1', kind: 'Contents'}
+    {re: /^##[ \t]*([^#]+)/, id: '_# %1', kind: 'Contents'}
+    {re: /^#[ \t]*([^#]+)/, id: '# %1', kind: 'Contents'}
   ]
   Json: [
     {re: /^[ \t]*"([^"]+)"[ \t]*\:/, id: '%1', kind: 'Field'}
