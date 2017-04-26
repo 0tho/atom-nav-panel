@@ -2,7 +2,10 @@
 langdef =
   All: [
     {re: /#nav-mark:(.*)/i, id: '%1', kind: 'Markers'}
-    {re: /(#|\/\/)[ \t]*todo:(.*)/i, id: '%2', kind: 'Todo'}
+    {re: /(?:#|\/\/)\s*@?todo:\s*(.+)/i, id: '%1', kind: 'TODO'}
+    {re: /(?:#|\/\/)\s*@?fixme:\s*(.+)/i, id: '%1', kind: 'FIXME'}
+    {re: /(?:#|\/\/)\s*@?bug:\s*(.+)/i, id: '%1', kind: 'BUG'}
+    {re: /(?:#|\/\/)\s*@?note:\s*(.+)/i, id: '%1', kind: 'NOTE'}
   ]
   CoffeeScript: [
     {re: /^[ \t]*class[ \t]*([a-zA-Z$_\.0-9]+)(?:[ \t]|$)/, id: '%1', kind: 'Class'}
