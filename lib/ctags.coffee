@@ -20,12 +20,13 @@ langdef =
     {re: /^([\w-_]+):/, id: '%1', kind: 'Target'}
   ]
   php: [
-    {re: /^[ \t]*const[ \t]*([a-zA-Z]+[^=]*=.*);/i, id: '%1', kind: 'Class'}
-    {re: /^[ \t]*((var|protected|private|public|static).*);/i, id: '%1', kind: 'Properties'}
-    {re: /^([_a-zA-Z \t]*)function (.*)/i, id: '%2', kind: 'Functions'}
-    {re: /^([_a-zA-Z \t]*)protected.+function (.*)/i, id: '%2', kind: 'Protected Methods'}
-    {re: /^([_a-zA-Z \t]*)private.+function (.*)/i, id: '%2', kind: 'Private Methods'}
-    {re: /^([_a-zA-Z \t]*)public.+function (.*)/i, id: '%2', kind: 'Public Methods'}
+    {re: /^\s*const[ \t]*([a-zA-Z]+[^=]*=.*);/i, id: '%1', kind: 'Class'}
+    {re: /^\s*(protected|private|public)\s*\$(.+?)[\s;]/i, id: '%1 %2', kind: 'Properties'}
+    {re: /^\s*(protected|private|public)\s+static\s*\$(.+?)[\s;]/i, id: '%1 %2', kind: 'Static Properties'}
+    {re: /^\s*function (.*)/i, id: '%2', kind: 'Functions'}
+    {re: /^\s*protected\s+function\s*(.*)[\s{]/i, id: '%1', kind: 'Protected Methods'}
+    {re: /^\s*private\s+function\s*(.*)[\s{]/i, id: '%1', kind: 'Private Methods'}
+    {re: /^\s*public\s+function\s*(.*)[\s{]/i, id: '%1', kind: 'Public Methods'}
   ]
   Css: [
     {re: /^[ \t]*(.+)[ \t]*\{/, id: '%1', kind: 'Selector'}
