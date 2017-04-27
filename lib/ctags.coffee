@@ -93,9 +93,10 @@ langdef =
   PerlTest: [
     {re: /n?ok[\s\S]*,\s*(["'])(.+)\1;$/m, id: '%2', kind: 'Test case'},
     {re: /(cmp|use|isa|does|can|dies|lives)-ok[\s\S]*,\s*(["'])(.+)\1;$/m, id: '%2', kind: 'Test case'},
-    {re: /is-?(nt|deeply|approx)[\s\S]*,\s*(["'])(.+)\1;$/m, id: '%2', kind: 'Test case'},
+    {re: /is(?:-?(?:nt|deeply|approx))?[\s\S]*,\s*(["'])(.+)\1;$/m, id: '%2', kind: 'Test case'},
     {re: /(?:un|throws-)?like[\s\S]*?, [\s\S]*?(["'])(.+?)\1;$/m, id: '%2', kind: 'Test case'},
-    {re: /eval-(dies|lives)-ok[\s\S]*,\s*(["'])(.+)\1;$/m, id: '%2', kind: 'Test case'}
+    {re: /eval-(dies|lives)-ok[\s\S]*,\s*(["'])(.+)\1;$/m, id: '%2', kind: 'Test case'},
+    {re: /subtest\s*(["'])(.+)\1\s*=>/, id: '%2', kind: 'Subtest'}
   ],
   JavaScript: [
     {re: /(,|(;|^)[ \t]*(var|let|([A-Za-z_$][A-Za-z0-9_$.]*\.)*))[ \t]*([A-Za-z0-9_$]+)[ \t]*=[ \t]*function[ \t]*\(/, id: '%5', kind: 'Function'}
