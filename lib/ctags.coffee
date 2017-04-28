@@ -1,11 +1,8 @@
 # Created by ctags2coffee.coffee by processing .ctags
-langdef =
+langdef = 
   All: [
     {re: /#nav-mark:(.*)/i, id: '%1', kind: 'Markers'}
-    {re: /(?:#|\/\/)\s*@?todo:\s*(.+)/i, id: '%1', kind: 'TODO'}
-    {re: /(?:#|\/\/)\s*@?fixme:\s*(.+)/i, id: '%1', kind: 'FIXME'}
-    {re: /(?:#|\/\/)\s*@?bug:\s*(.+)/i, id: '%1', kind: 'BUG'}
-    {re: /(?:#|\/\/)\s*@?note:\s*(.+)/i, id: '%1', kind: 'NOTE'}
+    {re: /(#|\/\/)[ \t]*todos:(.*)/i, id: '%2', kind: 'Todo'}
   ]
   CoffeeScript: [
     {re: /^[ \t]*class[ \t]*([a-zA-Z$_\.0-9]+)(?:[ \t]|$)/, id: '%1', kind: 'Class'}
@@ -18,18 +15,15 @@ langdef =
     {re: /^[ \t]*([A-Z_][A-Z0-9_]*)[ \t]*=/, id: '%1', kind: 'Constant'}
     {re: /^[ \t]*describe (.*) do/, id: '%1', kind: 'Rspec describe'}
     {re: /^[ \t]*context ['"](.*)['"] do/, id: '%1', kind: 'Rspec context'}
-  ]
-  Makefile: [
-    {re: /^([\w-_]+):/, id: '%1', kind: 'Target'}
+    {re: /^[ \t]*def[ \t]([_a-zA-Z]*)/i, id: '%1', kind: 'Functions'}
   ]
   php: [
-    {re: /^\s*const[ \t]*([a-zA-Z]+[^=]*=.*);/i, id: '%1', kind: 'Class'}
-    {re: /^\s*(protected|private|public)\s*\$(.+?)[\s;]/i, id: '%1 %2', kind: 'Properties'}
-    {re: /^\s*(protected|private|public)\s+static\s*\$(.+?)[\s;]/i, id: '%1 %2', kind: 'Static Properties'}
-    {re: /^\s*function (.*)/i, id: '%2', kind: 'Functions'}
-    {re: /^\s*protected\s+function\s*(.*)[\s{]/i, id: '%1', kind: 'Protected Methods'}
-    {re: /^\s*private\s+function\s*(.*)[\s{]/i, id: '%1', kind: 'Private Methods'}
-    {re: /^\s*public\s+function\s*(.*)[\s{]/i, id: '%1', kind: 'Public Methods'}
+    {re: /^[ \t]*const[ \t]*([a-zA-Z]+[^=]*=.*);/i, id: '%1', kind: 'Class'}
+    {re: /^[ \t]*((var|protected|private|public|static).*);/i, id: '%1', kind: 'Properties'}
+    {re: /^([_a-zA-Z \t]*)function (.*)/i, id: '%2', kind: 'Functions'}
+    {re: /^([_a-zA-Z \t]*)protected.+function (.*)/i, id: '%2', kind: 'Protected Methods'}
+    {re: /^([_a-zA-Z \t]*)private.+function (.*)/i, id: '%2', kind: 'Private Methods'}
+    {re: /^([_a-zA-Z \t]*)public.+function (.*)/i, id: '%2', kind: 'Public Methods'}
   ]
   Css: [
     {re: /^[ \t]*(.+)[ \t]*\{/, id: '%1', kind: 'Selector'}
@@ -46,8 +40,7 @@ langdef =
     {re: /^[ \t]*<([a-zA-Z]+)[ \t]*.*>/, id: '%1', kind: 'Function'}
   ]
   Markdown: [
-    {re: /^#+[ \t]*([^#]+)/, id: '%1', kind: 'Header'}
-    {re: /^- \[ \] (.*)/, id: '%1', kind: 'Open Tasks'}
+    {re: /^#+[ \t]*([^#]+)/, id: '%1', kind: 'Function'}
   ]
   Json: [
     {re: /^[ \t]*"([^"]+)"[ \t]*\:/, id: '%1', kind: 'Field'}
@@ -84,25 +77,6 @@ langdef =
     {re: /^\=head2[ \t]+(.+)/, id: '-- %1', kind: 'Plain Old Doc'}
     {re: /^\=head[3-5][ \t]+(.+)/, id: '---- %1', kind: 'Plain Old Doc'}
   ]
-  Perl6: [
-    {re: /sub\s+(?!infix|postfix|postcircumfix|prefix)([\w-']+).*{/, id: '%1', kind: 'Routine'},
-    {re: /sub\s+(?!infix|postfix|postcircumfix|prefix)([\w-']+)\s*\(/, id: '%1', kind: 'Routine'},
-    {re: /sub\s+(infix|postfix|postcircumfix|prefix):<([\S]+)>.*{/, id: '%1 %2', kind: 'Operator'},
-    {re: /sub\s+(infix|postfix|postcircumfix|prefix):«([\S]+)».*{/, id: '%1 %2', kind: 'Operator'},
-    {re: /class\s+([\w-']+)/, id: '%1', kind: 'Class'},
-    {re: /method\s+([\w-']+)/, id: '%1', kind: 'Method'},
-    {re: /token\s+([\w-']+)\s+{/, id: '%1 (token)', kind: 'Grammar'},
-    {re: /rule\s+([\w-']+)\s+{/, id: '%1 (rule)', kind: 'Grammar'},
-    {re: /regex\s+([\w-']+)\s+{/, id: '%1', kind: 'Regex'}
-  ],
-  PerlTest: [
-    {re: /n?ok[\s\S]*,\s*(["'])(.+)\1;$/m, id: '%2', kind: 'Test case'},
-    {re: /(cmp|use|isa|does|can|dies|lives)-ok[\s\S]*,\s*(["'])(.+)\1;$/m, id: '%2', kind: 'Test case'},
-    {re: /is(?:-?(?:nt|deeply|approx))?[\s\S]*,\s*(["'])(.+)\1;$/m, id: '%2', kind: 'Test case'},
-    {re: /(?:un|throws-)?like[\s\S]*?, [\s\S]*?(["'])(.+?)\1;$/m, id: '%2', kind: 'Test case'},
-    {re: /eval-(dies|lives)-ok[\s\S]*,\s*(["'])(.+)\1;$/m, id: '%2', kind: 'Test case'},
-    {re: /subtest\s*(["'])(.+)\1\s*=>/, id: '%2', kind: 'Subtest'}
-  ],
   JavaScript: [
     {re: /(,|(;|^)[ \t]*(var|let|([A-Za-z_$][A-Za-z0-9_$.]*\.)*))[ \t]*([A-Za-z0-9_$]+)[ \t]*=[ \t]*function[ \t]*\(/, id: '%5', kind: 'Function'}
     {re: /function[ \t]+([A-Za-z0-9_$]+)[ \t]*\([^)]*\)/, id: '%1', kind: 'Function'}
@@ -147,25 +121,12 @@ langdef =
     {re: /^[ \t]*(function|macro|abstract|type|typealias|immutable)[ \t]+([^ \t({[]+).*$/, id: '%2', kind: 'Function'}
     {re: /^[ \t]*(([^@#$ \t({[]+)|\(([^@#$ \t({[]+)\)|\((\$)\))[ \t]*(\{.*\})?[ \t]*\([^#]*\)[ \t]*=([^=].*$|$)/, id: '%2%3%4', kind: 'Function'}
   ]
-  reStructuredText: [
-    {re: /^(.*)\n([!-/:-@[-`{-~])\2+$/, multiline: true, id: '%2%2%2 %1', kind: 'Outlines'}
-  ]
-  taskpaper: [
-    {re: /(.*):$/, id: '%1', kind: 'Tasks'}
-    {re: /(.*)@important$/, id: '%1', kind: 'Important'}
-    {re: /(.*)@due\((.*)\)$/, id: '%1', kind: 'With due date'}
-  ]
-  
-langmap =
+langmap = 
   '.coffee': langdef.CoffeeScript
   '.litcoffee': langdef.CoffeeScript
   '.rb': langdef.Ruby
   'Rakefile': langdef.Ruby
-  'Makefile': langdef.Makefile
   '.php': langdef.php
-  '.pl6': langdef.Perl6
-  '.pm6': langdef.Perl6
-  '.t': langdef.PerlTest
   '.css': langdef.Css
   '.less': langdef.Css
   '.scss': langdef.Css
@@ -191,7 +152,4 @@ langmap =
   '.fountain': langdef.Fountain
   '.ftn': langdef.Fountain
   '.jl': langdef.Julia
-  '.rst': langdef.reStructuredText
-  '.taskpaper': langdef.taskpaper  
-  
 module.exports = {langdef: langdef, langmap: langmap}
