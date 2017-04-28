@@ -103,7 +103,12 @@ class NavParser
         prevIndent = markerIndents.pop()
 
       for rule in activeRules
-        match = lineText.match(rule.re)
+        if rule.multiline == true && row < editor.getLineCount()
+          nextLineText = editor.lineTextForBufferRow(row + 1) 
+          lineText = lineText + '\n' + nextLineText
+          match = lineText.match(rule.re)
+        else
+          match = lineText.match(rule.re)
         if match
           parentIndent = -1
           markerIndents.push(indent) if indent > prevIndent
@@ -159,6 +164,8 @@ class NavParser
       reStr = reFields[1] #.replace(/\\/g, '\\\\')
       flag = 'i' if reFields[2]
       rule = {re: new RegExp(reStr, flag)}
+      if /\\n/.test(reFields[1])
+        rule.multiline = true
       parts.shift()
 
     for part in parts

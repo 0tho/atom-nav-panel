@@ -47,7 +47,7 @@ langdef =
   ]
   Markdown: [
     {re: /^#+[ \t]*([^#]+)/, id: '%1', kind: 'Header'}
-    {re: /^- \[ \] (.*)/, id: '%1', kind: 'Open Tasks'}    
+    {re: /^- \[ \] (.*)/, id: '%1', kind: 'Open Tasks'}
   ]
   Json: [
     {re: /^[ \t]*"([^"]+)"[ \t]*\:/, id: '%1', kind: 'Field'}
@@ -147,11 +147,15 @@ langdef =
     {re: /^[ \t]*(function|macro|abstract|type|typealias|immutable)[ \t]+([^ \t({[]+).*$/, id: '%2', kind: 'Function'}
     {re: /^[ \t]*(([^@#$ \t({[]+)|\(([^@#$ \t({[]+)\)|\((\$)\))[ \t]*(\{.*\})?[ \t]*\([^#]*\)[ \t]*=([^=].*$|$)/, id: '%2%3%4', kind: 'Function'}
   ]
+  reStructuredText: [
+    {re: /^(.*)\n([!-/:-@[-`{-~])\2+$/, multiline: true, id: '%2%2%2 %1', kind: 'Outlines'}
+  ]
   taskpaper: [
     {re: /(.*):$/, id: '%1', kind: 'Tasks'}
     {re: /(.*)@important$/, id: '%1', kind: 'Important'}
     {re: /(.*)@due\((.*)\)$/, id: '%1', kind: 'With due date'}
   ]
+  
 langmap =
   '.coffee': langdef.CoffeeScript
   '.litcoffee': langdef.CoffeeScript
@@ -187,5 +191,7 @@ langmap =
   '.fountain': langdef.Fountain
   '.ftn': langdef.Fountain
   '.jl': langdef.Julia
+  '.rst': langdef.reStructuredText
   '.taskpaper': langdef.taskpaper  
+  
 module.exports = {langdef: langdef, langmap: langmap}
