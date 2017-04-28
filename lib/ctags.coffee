@@ -80,6 +80,25 @@ langdef =
     {re: /^\=head2[ \t]+(.+)/, id: '-- %1', kind: 'Plain Old Doc'}
     {re: /^\=head[3-5][ \t]+(.+)/, id: '---- %1', kind: 'Plain Old Doc'}
   ]
+  Perl6: [
+    {re: /sub\s+(?!infix|postfix|postcircumfix|prefix)([\w-']+).*{/, id: '%1', kind: 'Routine'},
+    {re: /sub\s+(?!infix|postfix|postcircumfix|prefix)([\w-']+)\s*\(/, id: '%1', kind: 'Routine'},
+    {re: /sub\s+(infix|postfix|postcircumfix|prefix):<([\S]+)>.*{/, id: '%1 %2', kind: 'Operator'},
+    {re: /sub\s+(infix|postfix|postcircumfix|prefix):«([\S]+)».*{/, id: '%1 %2', kind: 'Operator'},
+    {re: /class\s+([\w-']+)/, id: '%1', kind: 'Class'},
+    {re: /method\s+([\w-']+)/, id: '%1', kind: 'Method'},
+    {re: /token\s+([\w-']+)\s+{/, id: '%1 (token)', kind: 'Grammar'},
+    {re: /rule\s+([\w-']+)\s+{/, id: '%1 (rule)', kind: 'Grammar'},
+    {re: /regex\s+([\w-']+)\s+{/, id: '%1', kind: 'Regex'}
+  ],
+  PerlTest: [
+    {re: /n?ok[\s\S]*,\s*(["'])(.+)\1;$/m, id: '%2', kind: 'Test case'},
+    {re: /(cmp|use|isa|does|can|dies|lives)-ok[\s\S]*,\s*(["'])(.+)\1;$/m, id: '%2', kind: 'Test case'},
+    {re: /is(?:-?(?:nt|deeply|approx))?[\s\S]*,\s*(["'])(.+)\1;$/m, id: '%2', kind: 'Test case'},
+    {re: /(?:un|throws-)?like[\s\S]*?, [\s\S]*?(["'])(.+?)\1;$/m, id: '%2', kind: 'Test case'},
+    {re: /eval-(dies|lives)-ok[\s\S]*,\s*(["'])(.+)\1;$/m, id: '%2', kind: 'Test case'},
+    {re: /subtest\s*(["'])(.+)\1\s*=>/, id: '%2', kind: 'Subtest'}
+  ],
   JavaScript: [
     {re: /(,|(;|^)[ \t]*(var|let|([A-Za-z_$][A-Za-z0-9_$.]*\.)*))[ \t]*([A-Za-z0-9_$]+)[ \t]*=[ \t]*function[ \t]*\(/, id: '%5', kind: 'Function'}
     {re: /function[ \t]+([A-Za-z0-9_$]+)[ \t]*\([^)]*\)/, id: '%1', kind: 'Function'}
@@ -136,6 +155,9 @@ langmap =
   'Rakefile': langdef.Ruby
   'Makefile': langdef.Makefile
   '.php': langdef.php
+  '.pl6': langdef.Perl6
+  '.pm6': langdef.Perl6
+  '.t': langdef.PerlTest
   '.css': langdef.Css
   '.less': langdef.Css
   '.scss': langdef.Css
