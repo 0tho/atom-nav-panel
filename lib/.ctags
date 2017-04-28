@@ -18,6 +18,7 @@
 --regex-Ruby=/^[ \t]*([A-Z_][A-Z0-9_]*)[ \t]*=/\1/C,constant/
 --regex-Ruby=/^[ \t]*describe (.*) do/\1/d,rspec describe/
 --regex-Ruby=/^[ \t]*context ['"](.*)['"] do/\1/C,rspec context/
+--regex-Ruby=/^[ \t]*def[ \t]([_a-zA-Z]*)/\1/f,Functions/i
 
 --langdef=php
 --langmap=php:.php
