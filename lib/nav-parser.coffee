@@ -38,11 +38,12 @@ class NavParser
           fs.readFile ruleFile, (err,data)=>
             return unless data
             rulesText = data.toString().split("\n")
-            for line in rulesText
-              rule = @parseRule(line)
-              if rule
-                @projectRules[projectPath] ||= []
-                @projectRules[projectPath].push rule
+            if line.indexOf('#' + 'marker-rule:') >= 0
+              for line in rulesText
+                rule = @parseRule(line)
+                if rule
+                  @projectRules[projectPath] ||= []
+                  @projectRules[projectPath].push rule
 
 
   parse: ->
