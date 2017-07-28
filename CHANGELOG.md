@@ -1,5 +1,8 @@
 ## Next
 
+## 0.3.2
+* Fixed license file
+
 ## 0.3.1
 * Add a CONTRIBUTING file
 * Improve CHANGELOG file
