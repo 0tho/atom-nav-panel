@@ -39,10 +39,11 @@ class NavParser
             return unless data
             rulesText = data.toString().split("\n")
             for line in rulesText
-              rule = @parseRule(line)
-              if rule
-                @projectRules[projectPath] ||= []
-                @projectRules[projectPath].push rule
+              if line.indexOf('#' + 'marker-rule:') >= 0
+                rule = @parseRule(line)
+                if rule
+                  @projectRules[projectPath] ||= []
+                  @projectRules[projectPath].push rule
 
 
   parse: ->
@@ -53,7 +54,10 @@ class NavParser
     editorFile = editor.getPath()
     return unless editorFile  # happens with new file
 
-    activeRules = langdef.All || []
+    activeRules = langdef.All?.slice() || []  # MUST operate on a copy.
+    # Assigning without slice() in the line above caused additions to
+    # activeRules (below) to also be additions to langdef.All, which
+    # was definitely not desired.
     markerIndents = []    # indent chars to track parent/children
 
     updateRules = (newRule)->
@@ -183,4 +187,4 @@ class NavParser
 
 
   destroy: ->
-    @pathObserver.dispose()
+    @pathObserver.dispose() if pathObserver?

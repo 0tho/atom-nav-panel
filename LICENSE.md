@@ -1,4 +1,8 @@
-Copyright (c) 2015 Ziink
+MIT License
+
+nav-panel      0.0.01 - 0.0.11 Copyright (c) 2015      Ziink
+
+nav-panel-plus  0.1.0  - 0.3.0 Copyright (c) 2016-2017 0tho
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the
