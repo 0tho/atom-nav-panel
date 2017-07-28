@@ -20,23 +20,31 @@ class NavParser
 
 
   constructor: ->
-    @getProjectRules atom.project.getPaths()
-    pathObserver = atom.project.onDidChangePaths (paths)=>
-      @getProjectRules paths
+    # Static initialization is fine.  Asynchronous actions moved to constructorAsync to avoid a chicken/egg
+    # problem where the parser and the panel each wanted references to the other during construction, but
+    # both also initiated asynch processes.
+
+  constructorAsync: (navView)->
+    # getProjectRules invocations attempt to read the filesystem, so they're inherently asynch, which is
+    # (a) bad practice to put in a constructor and (b) behind the chicken/egg problem mentioned above.
+    @getProjectRules(atom.project.getPaths(), navView)
+    pathObserver = atom.project.onDidChangePaths (paths, navView)=>
+      @getProjectRules(paths, navView)
 
 
-  getProjectRules: (paths)->
+  getProjectRules: (paths, navView)->
     # First remove any project that's been closed
     for projectPath of @projectRules
       if paths.indexOf(projectPath) == -1
         delete @projectRules[projectPath]
-    # Now any new project opened.
+    # Now add any new project opened.
     for projectPath in paths
       ruleFile = projectPath + path.sep + '.nav-marker-rules'
       if !@projectRules[projectPath]
         do (projectPath)=>
           fs.readFile ruleFile, (err,data)=>
             return unless data
+            countRules = 0
             rulesText = data.toString().split("\n")
             for line in rulesText
               if line.indexOf('#' + 'marker-rule:') >= 0
@@ -44,9 +52,12 @@ class NavParser
                 if rule
                   @projectRules[projectPath] ||= []
                   @projectRules[projectPath].push rule
+                  countRules++
+            if countRules > 0
+              navView.parserResultsMayChange();
 
 
-  parse: ->
+  parseActiveTextEditor: ->
     # parse active editor's text
     items = []
     editor = atom.workspace.getActiveTextEditor()
