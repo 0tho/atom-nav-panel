@@ -1,5 +1,5 @@
 ## Next
-* Merged @johnarwe PR#19 - fixed bugs (issues #19, #20)
+* Merged @johnarwe PR#23 - fixed bugs (issues #19, #20)
 
 ## 0.3.2
 * Fixed license file
