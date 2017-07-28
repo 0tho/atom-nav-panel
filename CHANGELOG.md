@@ -1,11 +1,17 @@
 ## Next
 
 ## 0.3.1
-* Add a CONTRIBUTING file and improve CHANGELOG file
+* Add a CONTRIBUTING file
+* Improve CHANGELOG file
+* Update LICENSE file
+* Merged @johnarwe PR#14 - fixed bug
+* Merged @johnarwe PR#16 - fixed bug
+* Merged @johnarwe PR#18 - fixed bug
 
 ## 0.3.0
-* Merged pheraph pullrequest(#6) that added support for taskpaper and markdown tasks
-
+* Merged @pheraph PR#6 - added support for taskpaper and markdown tasks
+* Merged @Tyil PR#8 - added support for Perl6 and PerlTest
+* Merged @Tyil PR#9 - added support for php7
 
 ## 0.2.1
 * Fix bug when filter would not work after changing markers order
