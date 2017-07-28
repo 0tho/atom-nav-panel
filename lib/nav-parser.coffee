@@ -183,4 +183,4 @@ class NavParser
 
 
   destroy: ->
-    @pathObserver.dispose()
+    @pathObserver.dispose() if pathObserver?
