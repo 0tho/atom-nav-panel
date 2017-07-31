@@ -189,6 +189,21 @@ class NavView extends ResizableWidthView
     @populatePanel(editor)
 
 
+  parserResultsMayChange: ()->
+    activeEditor = atom.workspace.getActiveTextEditor()
+    editors = atom.workspace.getTextEditors()
+    for editor in editors
+      editorFile = editor.getPath() # undefined for new file
+      if editor == activeEditor
+        @updateFile(editorFile)
+      else
+        oldPanel = @getFilePanel(editorFile)
+        if oldPanel   # oldPanel is null when newly created file is saved
+          prevState = @getPanelState(oldPanel)
+          @state[editorFile] = prevState
+          @destroyPanel(oldPanel)
+
+
   updateFile: (file)->
     editor = @getFileEditor(file)
     oldPanel = @getFilePanel(file)
@@ -319,18 +334,20 @@ class NavView extends ResizableWidthView
 
   populatePanel: (editor)->
     # new
-    editor = atom.workspace.getActiveTextEditor() unless editor
+    activeEditor = atom.workspace.getActiveTextEditor()
+    editor = activeEditor unless editor
     file = editor.getPath()
     @filePanel = $("<ul class='list-tree has-collapsable-children'>").appendTo(@view)
     @filePanel.data('file', file)
-    items = @parser.parse()
-    if items
-      items = @arrangeItems(items, file)
-      for item in items
-        {id, elem} = @addPanelItem(item)
-        marker = editor.markBufferPosition([item.row, 0])
-        marker.zItemId = id
-        elem[0].markerId = marker.id
+    if editor == activeEditor
+      items = @parser.parseActiveTextEditor()
+      if items
+        items = @arrangeItems(items, file)
+        for item in items
+          {id, elem} = @addPanelItem(item)
+          marker = editor.markBufferPosition([item.row, 0])
+          marker.zItemId = id
+          elem[0].markerId = marker.id
     # @view.children().hide()
     @setVisibility()
     @setPanelState(@filePanel, @state[file])
